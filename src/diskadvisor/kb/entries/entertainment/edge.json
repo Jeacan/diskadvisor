@@ -1,0 +1,28 @@
+{
+  "id": "edge",
+  "name": "Microsoft Edge",
+  "aliases": ["Edge"],
+  "category": "entertainment",
+  "defaultInstallPaths": [
+    "C:\\Program Files (x86)\\Microsoft\\Edge\\Application"
+  ],
+  "defaultDataPaths": ["%LOCALAPPDATA%\\Microsoft\\Edge\\User Data"],
+  "recommendedInstallPath": "C:\\Program Files (x86)\\Microsoft\\Edge\\Application",
+  "recommendedDataPath": "D:\\Entertainment\\EdgeData",
+  "installMethods": [{ "method": "manual", "command": null, "priority": 1 }],
+  "migration": {
+    "install": "none",
+    "data": "move",
+    "steps": [
+      "关闭 Edge",
+      "移动 User Data 到 D 盘",
+      "使用 --user-data-dir 参数启动"
+    ],
+    "risk": "medium",
+    "auto_migratable": false
+  },
+  "envVars": [],
+  "notes": "系统自带，不建议卸载",
+  "verifiedVersion": "120",
+  "verifiedDate": "2024-01-15"
+}

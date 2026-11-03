@@ -1,0 +1,24 @@
+{
+  "id": "spotify",
+  "name": "Spotify",
+  "category": "entertainment",
+  "defaultInstallPaths": ["%APPDATA%\\Spotify"],
+  "defaultDataPaths": ["%LOCALAPPDATA%\\Spotify\\Storage"],
+  "recommendedInstallPath": "D:\\Entertainment\\Spotify",
+  "recommendedDataPath": "D:\\Entertainment\\SpotifyData",
+  "installMethods": [
+    { "method": "scoop", "command": "scoop install spotify", "priority": 1 },
+    { "method": "manual", "command": null, "priority": 2 }
+  ],
+  "migration": {
+    "install": "reinstall",
+    "data": "in-app-setting",
+    "steps": ["Spotify → 设置 → 存储 → 更改缓存位置"],
+    "risk": "low",
+    "auto_migratable": false
+  },
+  "envVars": [],
+  "notes": "缓存可迁移，本体不大",
+  "verifiedVersion": "1.2.x",
+  "verifiedDate": "2024-01-15"
+}

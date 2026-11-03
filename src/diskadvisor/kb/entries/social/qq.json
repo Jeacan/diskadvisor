@@ -1,0 +1,27 @@
+{
+  "id": "qq",
+  "name": "QQ",
+  "category": "social",
+  "defaultInstallPaths": [
+    "C:\\Program Files\\Tencent\\QQNT",
+    "C:\\Program Files (x86)\\Tencent\\QQ"
+  ],
+  "defaultDataPaths": ["%USERPROFILE%\\Documents\\Tencent Files"],
+  "recommendedInstallPath": "D:\\SocialApps\\QQ",
+  "recommendedDataPath": "D:\\SocialApps\\QQData",
+  "installMethods": [{ "method": "manual", "command": null, "priority": 1 }],
+  "migration": {
+    "install": "reinstall",
+    "data": "in-app-setting",
+    "steps": [
+      "打开 QQ → 设置 → 基本设置 → 文件管理",
+      "更改个人文件夹位置到 D:\\SocialApps\\QQData"
+    ],
+    "risk": "low",
+    "auto_migratable": false
+  },
+  "envVars": [],
+  "notes": "QQNT 新版支持在设置中直接迁移数据目录",
+  "verifiedVersion": "9.9.x",
+  "verifiedDate": "2024-01-15"
+}

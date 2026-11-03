@@ -1,0 +1,25 @@
+{
+  "id": "wps",
+  "name": "WPS Office",
+  "aliases": ["WPS"],
+  "category": "office",
+  "defaultInstallPaths": ["%LOCALAPPDATA%\\Kingsoft\\WPS Office"],
+  "defaultDataPaths": ["%USERPROFILE%\\Documents\\WPS Cloud Files"],
+  "recommendedInstallPath": "D:\\Office\\WPS",
+  "recommendedDataPath": "D:\\Office\\WPSData",
+  "installMethods": [{ "method": "manual", "command": null, "priority": 1 }],
+  "migration": {
+    "install": "reinstall",
+    "data": "move",
+    "steps": [
+      "卸载后重新安装到 D:\\Office\\WPS",
+      "在 WPS 设置中修改文档默认保存位置"
+    ],
+    "risk": "low",
+    "auto_migratable": false
+  },
+  "envVars": [],
+  "notes": "WPS 支持自定义安装路径",
+  "verifiedVersion": "12.x",
+  "verifiedDate": "2024-01-15"
+}

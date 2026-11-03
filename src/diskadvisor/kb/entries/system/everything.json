@@ -1,0 +1,31 @@
+{
+  "id": "everything",
+  "name": "Everything",
+  "category": "system",
+  "defaultInstallPaths": ["C:\\Program Files\\Everything"],
+  "defaultDataPaths": ["%APPDATA%\\Everything"],
+  "recommendedInstallPath": "D:\\SystemTools\\Everything",
+  "recommendedDataPath": "D:\\SystemTools\\EverythingData",
+  "installMethods": [
+    { "method": "scoop", "command": "scoop install everything", "priority": 1 },
+    {
+      "method": "winget",
+      "command": "winget install voidtools.Everything",
+      "priority": 2
+    }
+  ],
+  "migration": {
+    "install": "reinstall",
+    "data": "move",
+    "steps": [
+      "卸载后重新安装到 D 盘",
+      "迁移索引数据库到 D:\\SystemTools\\EverythingData"
+    ],
+    "risk": "low",
+    "auto_migratable": false
+  },
+  "envVars": [],
+  "notes": "索引数据库可能较大，迁移到 D 盘",
+  "verifiedVersion": "1.4",
+  "verifiedDate": "2024-01-15"
+}

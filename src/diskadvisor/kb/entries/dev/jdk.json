@@ -1,0 +1,47 @@
+{
+  "id": "jdk",
+  "name": "JDK",
+  "aliases": ["Java", "OpenJDK"],
+  "category": "dev",
+  "defaultInstallPaths": [
+    "C:\\Program Files\\Java\\jdk-21",
+    "C:\\Program Files\\Eclipse Adoptium\\jdk-21"
+  ],
+  "defaultDataPaths": [],
+  "recommendedInstallPath": "D:\\Developer\\Scoop\\apps\\openjdk",
+  "recommendedDataPath": "D:\\Developer\\Scoop\\persist\\openjdk",
+  "installMethods": [
+    { "method": "scoop", "command": "scoop install openjdk", "priority": 1 },
+    {
+      "method": "scoop",
+      "command": "scoop install temurin21-jdk",
+      "priority": 2
+    }
+  ],
+  "migration": {
+    "install": "reinstall",
+    "data": "none",
+    "steps": ["卸载 C 盘版本", "scoop install openjdk"],
+    "risk": "low",
+    "auto_migratable": true
+  },
+  "envVars": [
+    {
+      "name": "JAVA_HOME",
+      "value": "%SCOOP%\\apps\\openjdk\\current",
+      "scope": "user"
+    }
+  ],
+  "versionManagement": {
+    "tool": "scoop versions",
+    "method": "scoop install openjdk17 && scoop reset openjdk17",
+    "commands": [
+      "scoop bucket add java",
+      "scoop install openjdk17",
+      "scoop reset openjdk17"
+    ]
+  },
+  "notes": "JAVA_HOME 由 Scoop 自动管理；多版本通过 scoop reset 切换",
+  "verifiedVersion": "21",
+  "verifiedDate": "2024-01-15"
+}

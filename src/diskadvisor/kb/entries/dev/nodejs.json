@@ -1,0 +1,40 @@
+{
+  "id": "nodejs",
+  "name": "Node.js",
+  "aliases": ["node", "npm"],
+  "category": "dev",
+  "defaultInstallPaths": ["C:\\Program Files\\nodejs"],
+  "defaultDataPaths": ["%APPDATA%\\npm", "%APPDATA%\\npm-cache"],
+  "recommendedInstallPath": "D:\\Developer\\Scoop\\apps\\nodejs",
+  "recommendedDataPath": "D:\\Developer\\Scoop\\persist\\nodejs",
+  "installMethods": [
+    { "method": "scoop", "command": "scoop install nodejs-lts", "priority": 1 },
+    { "method": "scoop", "command": "scoop install nodejs", "priority": 2 }
+  ],
+  "migration": {
+    "install": "reinstall",
+    "data": "none",
+    "steps": ["卸载 C 盘版本", "scoop install nodejs-lts"],
+    "risk": "low",
+    "auto_migratable": true
+  },
+  "envVars": [
+    {
+      "name": "NODE_PATH",
+      "value": "%SCOOP%\\persist\\nodejs\\node_modules",
+      "scope": "user"
+    }
+  ],
+  "versionManagement": {
+    "tool": "scoop versions",
+    "method": "scoop install nodejs@18.19.0 && scoop reset nodejs@18.19.0",
+    "commands": [
+      "scoop bucket add versions",
+      "scoop install nodejs@18.19.0",
+      "scoop reset nodejs@18.19.0"
+    ]
+  },
+  "notes": "推荐使用 LTS 版本；多版本通过 scoop reset 切换",
+  "verifiedVersion": "20.x LTS",
+  "verifiedDate": "2024-01-15"
+}

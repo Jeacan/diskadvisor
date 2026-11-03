@@ -1,0 +1,27 @@
+{
+  "id": "mysql",
+  "name": "MySQL",
+  "category": "dev",
+  "defaultInstallPaths": ["C:\\Program Files\\MySQL\\MySQL Server 8.0"],
+  "defaultDataPaths": ["C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Data"],
+  "recommendedInstallPath": "D:\\Developer\\Scoop\\apps\\mysql",
+  "recommendedDataPath": "D:\\Developer\\Scoop\\persist\\mysql\\data",
+  "installMethods": [
+    { "method": "scoop", "command": "scoop install mysql", "priority": 1 }
+  ],
+  "migration": {
+    "install": "reinstall",
+    "data": "move",
+    "steps": [
+      "停止 MySQL 服务",
+      "迁移 Data 目录到 D:\\Developer\\Scoop\\persist\\mysql\\data",
+      "修改 my.ini 中的 datadir"
+    ],
+    "risk": "medium",
+    "auto_migratable": false
+  },
+  "envVars": [],
+  "notes": "数据目录迁移需要停服务，迁移前备份",
+  "verifiedVersion": "8.0",
+  "verifiedDate": "2024-01-15"
+}

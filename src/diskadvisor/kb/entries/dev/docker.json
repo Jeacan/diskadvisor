@@ -1,0 +1,25 @@
+{
+  "id": "docker",
+  "name": "Docker Desktop",
+  "aliases": ["Docker"],
+  "category": "dev",
+  "defaultInstallPaths": ["C:\\Program Files\\Docker\\Docker"],
+  "defaultDataPaths": ["%APPDATA%\\Docker", "%LOCALAPPDATA%\\Docker"],
+  "recommendedInstallPath": "D:\\Developer\\DevTools\\Docker",
+  "recommendedDataPath": "D:\\Developer\\DevTools\\DockerData",
+  "installMethods": [{ "method": "manual", "command": null, "priority": 1 }],
+  "migration": {
+    "install": "reinstall",
+    "data": "in-app-setting",
+    "steps": [
+      "Docker Desktop → Settings → Resources → Advanced",
+      "修改 Disk image location 到 D:\\Developer\\DevTools\\DockerData"
+    ],
+    "risk": "medium",
+    "auto_migratable": false
+  },
+  "envVars": [],
+  "notes": "镜像和容器数据体积大，务必迁移；迁移前先停止所有容器",
+  "verifiedVersion": "4.26",
+  "verifiedDate": "2024-01-15"
+}

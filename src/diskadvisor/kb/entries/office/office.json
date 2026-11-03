@@ -1,0 +1,25 @@
+{
+  "id": "office",
+  "name": "Microsoft Office",
+  "aliases": ["Office", "Word", "Excel"],
+  "category": "office",
+  "defaultInstallPaths": ["C:\\Program Files\\Microsoft Office"],
+  "defaultDataPaths": ["%USERPROFILE%\\Documents"],
+  "recommendedInstallPath": "C:\\Program Files\\Microsoft Office",
+  "recommendedDataPath": "D:\\Office\\Documents",
+  "installMethods": [{ "method": "manual", "command": null, "priority": 1 }],
+  "migration": {
+    "install": "none",
+    "data": "none",
+    "steps": [
+      "Office 安装在 C 盘是官方推荐方式，不建议迁移",
+      "文档通过 OneDrive 或手动保存到 D 盘"
+    ],
+    "risk": "high",
+    "auto_migratable": false
+  },
+  "envVars": [],
+  "notes": "Office 迁移到非系统盘可能导致更新失败，不建议",
+  "verifiedVersion": "2021",
+  "verifiedDate": "2024-01-15"
+}

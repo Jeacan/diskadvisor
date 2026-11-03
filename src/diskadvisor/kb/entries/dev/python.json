@@ -1,0 +1,36 @@
+{
+  "id": "python",
+  "name": "Python",
+  "aliases": ["python3", "py"],
+  "category": "dev",
+  "defaultInstallPaths": [
+    "C:\\Program Files\\Python312",
+    "%LOCALAPPDATA%\\Programs\\Python\\Python312"
+  ],
+  "defaultDataPaths": ["%APPDATA%\\pip\\Cache"],
+  "recommendedInstallPath": "D:\\Developer\\Scoop\\apps\\python",
+  "recommendedDataPath": "D:\\Developer\\Scoop\\persist\\python",
+  "installMethods": [
+    { "method": "scoop", "command": "scoop install python", "priority": 1 }
+  ],
+  "migration": {
+    "install": "reinstall",
+    "data": "none",
+    "steps": ["卸载 C 盘版本", "scoop install python"],
+    "risk": "low",
+    "auto_migratable": true
+  },
+  "envVars": [],
+  "versionManagement": {
+    "tool": "scoop versions",
+    "method": "scoop install python@3.11.5 && scoop reset python@3.11.5",
+    "commands": [
+      "scoop bucket add versions",
+      "scoop install python@3.11.5",
+      "scoop reset python@3.11.5"
+    ]
+  },
+  "notes": "多版本通过 scoop reset 切换",
+  "verifiedVersion": "3.12",
+  "verifiedDate": "2024-01-15"
+}

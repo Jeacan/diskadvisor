@@ -1,0 +1,25 @@
+{
+  "id": "epic",
+  "name": "Epic Games Launcher",
+  "aliases": ["Epic Games", "Epic"],
+  "category": "game",
+  "defaultInstallPaths": ["C:\\Program Files (x86)\\Epic Games\\Launcher"],
+  "defaultDataPaths": ["C:\\Program Files\\Epic Games"],
+  "recommendedInstallPath": "D:\\Games\\Epic\\Launcher",
+  "recommendedDataPath": "D:\\Games\\EpicLibrary",
+  "installMethods": [{ "method": "manual", "command": null, "priority": 1 }],
+  "migration": {
+    "install": "reinstall",
+    "data": "move",
+    "steps": [
+      "Epic → 设置 → 管理游戏 → 更改安装位置",
+      "选择 D:\\Games\\EpicLibrary"
+    ],
+    "risk": "low",
+    "auto_migratable": false
+  },
+  "envVars": [],
+  "notes": "支持自定义游戏安装目录",
+  "verifiedVersion": "17.x",
+  "verifiedDate": "2024-01-15"
+}

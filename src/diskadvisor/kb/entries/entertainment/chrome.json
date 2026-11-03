@@ -1,0 +1,33 @@
+{
+  "id": "chrome",
+  "name": "Google Chrome",
+  "aliases": ["Chrome"],
+  "category": "entertainment",
+  "defaultInstallPaths": ["C:\\Program Files\\Google\\Chrome\\Application"],
+  "defaultDataPaths": ["%LOCALAPPDATA%\\Google\\Chrome\\User Data"],
+  "recommendedInstallPath": "C:\\Program Files\\Google\\Chrome\\Application",
+  "recommendedDataPath": "D:\\Entertainment\\ChromeData",
+  "installMethods": [
+    {
+      "method": "scoop",
+      "command": "scoop install googlechrome",
+      "priority": 1
+    },
+    { "method": "manual", "command": null, "priority": 2 }
+  ],
+  "migration": {
+    "install": "none",
+    "data": "move",
+    "steps": [
+      "关闭 Chrome",
+      "将 %LOCALAPPDATA%\\Google\\Chrome\\User Data 移动到 D:\\Entertainment\\ChromeData",
+      "创建符号链接或使用 --user-data-dir 启动参数"
+    ],
+    "risk": "medium",
+    "auto_migratable": false
+  },
+  "envVars": [],
+  "notes": "浏览器本体不大，缓存和用户数据才是大头",
+  "verifiedVersion": "120",
+  "verifiedDate": "2024-01-15"
+}

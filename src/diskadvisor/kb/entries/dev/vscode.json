@@ -1,0 +1,29 @@
+{
+  "id": "vscode",
+  "name": "Visual Studio Code",
+  "aliases": ["VSCode", "Code"],
+  "category": "dev",
+  "defaultInstallPaths": ["%LOCALAPPDATA%\\Programs\\Microsoft VS Code"],
+  "defaultDataPaths": ["%APPDATA%\\Code", "%USERPROFILE%\\.vscode"],
+  "recommendedInstallPath": "D:\\Developer\\DevTools\\VSCode",
+  "recommendedDataPath": "D:\\Developer\\DevTools\\VSCodeData",
+  "installMethods": [
+    { "method": "scoop", "command": "scoop install vscode", "priority": 1 },
+    { "method": "manual", "command": null, "priority": 2 }
+  ],
+  "migration": {
+    "install": "reinstall",
+    "data": "move",
+    "steps": [
+      "卸载 C 盘版本",
+      "scoop install vscode",
+      "或手动安装到 D:\\Developer\\DevTools\\VSCode"
+    ],
+    "risk": "low",
+    "auto_migratable": true
+  },
+  "envVars": [],
+  "notes": "Scoop 安装的 VSCode 支持自动更新",
+  "verifiedVersion": "1.85",
+  "verifiedDate": "2024-01-15"
+}

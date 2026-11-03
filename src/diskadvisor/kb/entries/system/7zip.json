@@ -1,0 +1,25 @@
+{
+  "id": "7zip",
+  "name": "7-Zip",
+  "aliases": ["7zip"],
+  "category": "system",
+  "defaultInstallPaths": ["C:\\Program Files\\7-Zip"],
+  "defaultDataPaths": [],
+  "recommendedInstallPath": "D:\\SystemTools\\7-Zip",
+  "recommendedDataPath": null,
+  "installMethods": [
+    { "method": "scoop", "command": "scoop install 7zip", "priority": 1 },
+    { "method": "winget", "command": "winget install 7zip.7zip", "priority": 2 }
+  ],
+  "migration": {
+    "install": "reinstall",
+    "data": "none",
+    "steps": ["卸载 C 盘版本", "scoop install 7zip"],
+    "risk": "low",
+    "auto_migratable": true
+  },
+  "envVars": [],
+  "notes": "Scoop 安装后自动加入 PATH",
+  "verifiedVersion": "23.x",
+  "verifiedDate": "2024-01-15"
+}

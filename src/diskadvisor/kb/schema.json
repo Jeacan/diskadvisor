@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["id", "name", "category", "recommendedInstallPath"],
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "aliases": { "type": "array", "items": { "type": "string" } },
+    "category": {
+      "type": "string",
+      "enum": [
+        "social",
+        "game",
+        "dev",
+        "office",
+        "entertainment",
+        "system",
+        "green",
+        "other"
+      ]
+    },
+    "defaultInstallPaths": { "type": "array", "items": { "type": "string" } },
+    "defaultDataPaths": { "type": "array", "items": { "type": "string" } },
+    "recommendedInstallPath": { "type": "string" },
+    "recommendedDataPath": { "type": "string" },
+    "installMethods": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "method": { "enum": ["scoop", "winget", "choco", "manual"] },
+          "command": { "type": ["string", "null"] },
+          "priority": { "type": "integer" }
+        }
+      }
+    },
+    "migration": {
+      "type": "object",
+      "properties": {
+        "install": { "enum": ["reinstall", "move", "symlink", "none"] },
+        "data": { "enum": ["in-app-setting", "move", "symlink", "none"] },
+        "steps": { "type": "array", "items": { "type": "string" } },
+        "risk": { "enum": ["low", "medium", "high"] },
+        "auto_migratable": { "type": "boolean" }
+      }
+    },
+    "envVars": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "value": { "type": "string" },
+          "scope": { "enum": ["user", "machine"] }
+        }
+      }
+    },
+    "versionManagement": {
+      "type": "object",
+      "properties": {
+        "tool": { "type": "string" },
+        "method": { "type": "string" },
+        "commands": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "notes": { "type": "string" },
+    "verifiedVersion": { "type": "string" },
+    "verifiedDate": { "type": "string", "format": "date" }
+  }
+}

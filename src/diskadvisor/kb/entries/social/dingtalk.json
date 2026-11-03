@@ -1,0 +1,25 @@
+{
+  "id": "dingtalk",
+  "name": "钉钉",
+  "aliases": ["DingTalk"],
+  "category": "social",
+  "defaultInstallPaths": ["%LOCALAPPDATA%\\DingTalk"],
+  "defaultDataPaths": ["%USERPROFILE%\\Documents\\DingTalk"],
+  "recommendedInstallPath": "D:\\SocialApps\\DingTalk",
+  "recommendedDataPath": "D:\\SocialApps\\DingTalkData",
+  "installMethods": [{ "method": "manual", "command": null, "priority": 1 }],
+  "migration": {
+    "install": "reinstall",
+    "data": "in-app-setting",
+    "steps": [
+      "钉钉 → 设置 → 通用 → 文件存储位置",
+      "更改到 D:\\SocialApps\\DingTalkData"
+    ],
+    "risk": "low",
+    "auto_migratable": false
+  },
+  "envVars": [],
+  "notes": "支持在设置中修改文件存储位置",
+  "verifiedVersion": "7.x",
+  "verifiedDate": "2024-01-15"
+}

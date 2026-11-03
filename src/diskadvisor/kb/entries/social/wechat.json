@@ -1,0 +1,32 @@
+{
+  "id": "wechat",
+  "name": "微信",
+  "aliases": ["WeChat", "Weixin"],
+  "category": "social",
+  "defaultInstallPaths": [
+    "C:\\Program Files\\Tencent\\WeChat",
+    "C:\\Program Files (x86)\\Tencent\\WeChat"
+  ],
+  "defaultDataPaths": [
+    "%USERPROFILE%\\Documents\\WeChat Files",
+    "%USERPROFILE%\\AppData\\Roaming\\Tencent\\WeChat"
+  ],
+  "recommendedInstallPath": "D:\\SocialApps\\WeChat",
+  "recommendedDataPath": "D:\\SocialApps\\WeChatData",
+  "installMethods": [{ "method": "manual", "command": null, "priority": 1 }],
+  "migration": {
+    "install": "reinstall",
+    "data": "in-app-setting",
+    "steps": [
+      "打开微信 → 左下角三横线 → 设置",
+      "文件管理 → 更改 → 选择 D:\\SocialApps\\WeChatData",
+      "微信提示重启并迁移，确认"
+    ],
+    "risk": "low",
+    "auto_migratable": false
+  },
+  "envVars": [],
+  "notes": "数据迁移必须通过微信内置功能，直接剪切文件夹会导致聊天记录丢失",
+  "verifiedVersion": "3.9.x",
+  "verifiedDate": "2024-01-15"
+}

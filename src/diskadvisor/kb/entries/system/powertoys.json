@@ -1,0 +1,28 @@
+{
+  "id": "powertoys",
+  "name": "PowerToys",
+  "category": "system",
+  "defaultInstallPaths": ["C:\\Program Files\\PowerToys"],
+  "defaultDataPaths": ["%LOCALAPPDATA%\\Microsoft\\PowerToys"],
+  "recommendedInstallPath": "D:\\SystemTools\\PowerToys",
+  "recommendedDataPath": "D:\\SystemTools\\PowerToysData",
+  "installMethods": [
+    {
+      "method": "winget",
+      "command": "winget install Microsoft.PowerToys",
+      "priority": 1
+    },
+    { "method": "scoop", "command": "scoop install powertoys", "priority": 2 }
+  ],
+  "migration": {
+    "install": "reinstall",
+    "data": "none",
+    "steps": ["卸载后重新安装到 D 盘"],
+    "risk": "low",
+    "auto_migratable": false
+  },
+  "envVars": [],
+  "notes": "配置存放在 %LOCALAPPDATA%，体积不大",
+  "verifiedVersion": "0.77",
+  "verifiedDate": "2024-01-15"
+}

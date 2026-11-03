@@ -1,0 +1,25 @@
+{
+  "id": "steam",
+  "name": "Steam",
+  "category": "game",
+  "defaultInstallPaths": ["C:\\Program Files (x86)\\Steam"],
+  "defaultDataPaths": ["C:\\Program Files (x86)\\Steam\\steamapps"],
+  "recommendedInstallPath": "D:\\Games\\Steam",
+  "recommendedDataPath": "D:\\Games\\SteamLibrary",
+  "installMethods": [{ "method": "manual", "command": null, "priority": 1 }],
+  "migration": {
+    "install": "reinstall",
+    "data": "move",
+    "steps": [
+      "Steam → 设置 → 存储空间",
+      "点击 + → 选择 D 盘 → 新建 D:\\Games\\SteamLibrary",
+      "对已装游戏右键 → 属性 → 已安装文件 → 移动安装文件夹"
+    ],
+    "risk": "low",
+    "auto_migratable": false
+  },
+  "envVars": [],
+  "notes": "客户端可装在 C 盘，游戏库必须放 D 盘；支持多库",
+  "verifiedVersion": "2024",
+  "verifiedDate": "2024-01-15"
+}

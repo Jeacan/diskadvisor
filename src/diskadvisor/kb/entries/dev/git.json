@@ -1,0 +1,32 @@
+{
+  "id": "git",
+  "name": "Git",
+  "category": "dev",
+  "defaultInstallPaths": ["C:\\Program Files\\Git"],
+  "defaultDataPaths": ["%USERPROFILE%\\.gitconfig"],
+  "recommendedInstallPath": "D:\\Developer\\Scoop\\apps\\git",
+  "recommendedDataPath": "D:\\Developer\\Scoop\\persist\\git",
+  "installMethods": [
+    { "method": "scoop", "command": "scoop install git", "priority": 1 }
+  ],
+  "migration": {
+    "install": "reinstall",
+    "data": "none",
+    "steps": ["卸载 C 盘版本", "scoop install git"],
+    "risk": "low",
+    "auto_migratable": true
+  },
+  "envVars": [],
+  "versionManagement": {
+    "tool": "scoop versions",
+    "method": "scoop install git@2.43.0 && scoop reset git@2.43.0",
+    "commands": [
+      "scoop bucket add versions",
+      "scoop install git@2.43.0",
+      "scoop reset git@2.43.0"
+    ]
+  },
+  "notes": "Scoop 安装的 Git 会自动加入 PATH",
+  "verifiedVersion": "2.43",
+  "verifiedDate": "2024-01-15"
+}
