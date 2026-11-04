@@ -1,9 +1,9 @@
 # DiskAdvisor
 
-> Windows 磁盘空间规划顾问：扫描系统现状，结合软件知识库，告诉你「装哪里、数据放哪里、怎么配环境变量」，并生成可审阅的 PowerShell 脚本。
+> Windows 磁盘空间规划顾问：扫描系统现状，结合软件知识库，告诉你「装哪里、数据放哪里、怎么配环境变量」，并生成可审阅的 PowerShell 脚本。提供 CLI 和 Web UI 两种界面。
 
-[![Tests](https://img.shields.io/badge/tests-45%20passed-brightgreen)]()
-[![Coverage](https://img.shields.io/badge/coverage-69%25-yellowgreen)]()
+[![Tests](https://img.shields.io/badge/tests-60%2B%20passed-brightgreen)]()
+[![Coverage](https://img.shields.io/badge/coverage-75%25-yellowgreen)]()
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue)]()
 [![License](https://img.shields.io/badge/license-MIT-blue)]()
 
@@ -14,8 +14,10 @@
 - [它解决什么问题](#-它解决什么问题)
 - [它不是什么](#-它不是什么)
 - [核心特性](#-核心特性)
+- [界面预览](#-界面预览)
 - [快速开始](#-快速开始)
-- [命令一览](#-命令一览)
+- [Web UI](#-web-ui)
+- [CLI 命令](#-cli-命令)
 - [典型工作流](#-典型工作流)
 - [目录规划](#-目录规划)
 - [安全原则](#-安全原则)
@@ -37,7 +39,7 @@
 - **知识分散**：微信数据要改内置设置、Steam 库要加新位置、开发工具最好用 Scoop……这些知识散落在各处
 - **重复劳动**：换新电脑时，所有规划都要重新来一遍
 
-DiskAdvisor 把这些决策自动化：**扫描 → 分析 → 推荐 → 生成脚本**。
+DiskAdvisor 把这些决策自动化：**扫描 → 分析 → 推荐 → 生成脚本 → 安全执行**。
 
 ---
 
@@ -56,19 +58,99 @@ DiskAdvisor 把这些决策自动化：**扫描 → 分析 → 推荐 → 生成
 
 ## ✨ 核心特性
 
-| 特性           | 说明                                                                  |
-| -------------- | --------------------------------------------------------------------- |
-| **系统扫描**   | 磁盘、已装软件（注册表 + Scoop + winget）、环境变量、目录占用、大文件 |
-| **智能分析**   | 磁盘压力分级、空间归因（哪个软件占了 C 盘）、错位软件识别             |
-| **推荐引擎**   | 基于知识库 + 评分模型 + 冲突检测，按性价比排序                        |
-| **脚本生成**   | 生成可审阅的 PowerShell 脚本，区分手动/自动步骤                       |
-| **安全执行**   | 默认 dry-run，支持 interactive / auto 模式                            |
-| **可回滚**     | 所有操作记录日志，支持按会话回滚                                      |
-| **知识库驱动** | 20 个软件条目，覆盖社交、游戏、开发、办公、娱乐、系统                 |
-| **Scoop 集成** | 优先推荐 Scoop，开发工具支持版本管理（scoop reset）                   |
-| **配置管理**   | 导出/导入规划方案，换机器一键还原                                     |
-| **新机初始化** | 一键生成 D 盘目录结构 + Scoop 配置脚本                                |
-| **单文件分发** | PyInstaller 打包，零外部依赖，38 MB 一个 exe                          |
+### 双界面
+
+| 界面       | 适合                 | 启动方式              |
+| ---------- | -------------------- | --------------------- |
+| **Web UI** | 普通用户、可视化操作 | `diskadvisor ui`      |
+| **CLI**    | 开发者、脚本自动化   | `diskadvisor scan` 等 |
+
+### 功能矩阵
+
+| 特性         | CLI | Web UI |
+| ------------ | --- | ------ |
+| 系统扫描     | ✅  | ✅     |
+| 智能分析     | ✅  | ✅     |
+| 推荐列表     | ✅  | ✅     |
+| 脚本生成     | ✅  | ✅     |
+| 安全执行     | ✅  | ✅     |
+| 回滚         | ✅  | ✅     |
+| 知识库管理   | ✅  | ✅     |
+| 配置导入导出 | ✅  | ⬜     |
+| 新机初始化   | ✅  | ⬜     |
+
+### 性能
+
+| 场景                    | 耗时      |
+| ----------------------- | --------- |
+| 首次扫描（快速模式）    | 约 15 秒  |
+| 首次扫描（完整模式）    | 约 20 秒  |
+| 第二次扫描（命中缓存）  | 约 0.0 秒 |
+| 诊断 → 推荐（复用缓存） | 约 15 秒  |
+
+### 安全
+
+- 默认 `dry-run`，不修改系统
+- 所有操作记录日志，支持一键回滚
+- 不删除数据、不剪切目录、不改注册表路径
+- 知识库驱动，无硬编码推荐
+
+---
+
+## 🖥️ 界面预览
+
+### Web UI
+
+```text
+┌─────────────────────────────────────────────────────┐
+│  💾 DiskAdvisor                          v1.1.0      │
+│  Windows 磁盘空间规划顾问                             │
+├─────────────────────────────────────────────────────┤
+│  [诊断]  [推荐]  [咨询]  [执行日志]  [知识库]          │
+├─────────────────────────────────────────────────────┤
+│                                                      │
+│  [开始扫描]  ☐ 快速模式  ☐ 强制刷新                   │
+│                                                      │
+│  ┌────────────────────────────────────────────────┐ │
+│  │ 磁盘现状                                        │ │
+│  │ 盘符  总容量  可用   使用率        状态          │ │
+│  │ C:    150GB   65GB   ████████░░ 56%  🟢 充足    │ │
+│  │ D:    326GB   264GB  ██░░░░░░░░ 19%  🟢 充足    │ │
+│  └────────────────────────────────────────────────┘ │
+│                                                      │
+│  ┌────────────────────────────────────────────────┐ │
+│  │ 环境变量问题                                    │ │
+│  │ ⚠️ SCOOP 未设置，建议安装 Scoop 并配置到 D 盘   │ │
+│  └────────────────────────────────────────────────┘ │
+│                                                      │
+│  ┌────────────────────────────────────────────────┐ │
+│  │ 装在 C 盘的软件                                 │ │
+│  │ 软件    当前位置              推荐位置          │ │
+│  │ Git     C:\Program Files\Git  D:\Developer\...  │ │
+│  └────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────┘
+```
+
+### 推荐页
+
+```text
+┌─────────────────────────────────────────────────────┐
+│  共 7 条推荐                                         │
+│                                                      │
+│  ┃ 🔴 迁移 Docker Desktop 数据目录（36.3 GB）        │
+│  ┃ 类别：migrate · 难度：medium · 风险：medium      │
+│  ┃ 释放：36.3 GB · 10 分钟                          │
+│  ┃ 原因：C:\Users\...\AppData 占用 36.3 GB          │
+│  ┃ 1. Docker Desktop → Settings → Resources         │
+│  ┃ 2. 修改 Disk image location 到 D:\...            │
+│  ┃ [试运行] [执行]                                   │
+│                                                      │
+│  ┃ 🟠 迁移 Git 到 D 盘                               │
+│  ┃ 类别：migrate · 难度：easy · 风险：low           │
+│  ┃ 1. scoop install git                            │
+│  ┃ [试运行] [执行]                                   │
+└─────────────────────────────────────────────────────┘
+```
 
 ---
 
@@ -76,10 +158,14 @@ DiskAdvisor 把这些决策自动化：**扫描 → 分析 → 推荐 → 生成
 
 ### 方式一：下载 exe（推荐）
 
-从 [Releases](../../releases) 下载 `diskadvisor.exe`，放到任意目录，直接运行：
+从 [Releases](../../releases) 下载 `diskadvisor.exe`，放到任意目录：
 
 ```powershell
-.\diskadvisor.exe --help
+# 启动 Web UI
+.\diskadvisor.exe ui
+
+# 或使用 CLI
+.\diskadvisor.exe scan --no-deep
 ```
 
 无需安装 Python。
@@ -89,30 +175,57 @@ DiskAdvisor 把这些决策自动化：**扫描 → 分析 → 推荐 → 生成
 ```powershell
 git clone <repo>
 cd diskadvisor
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 pip install -e ".[dev]"
 ```
 
 需要 **Python 3.11+**、**Windows 10 1809+ / Windows 11**。
 
-### 第一次运行
+---
+
+## 🖥️ Web UI
+
+### 启动
 
 ```powershell
-# 诊断：扫描系统，生成报告
-diskadvisor scan -o report/diagnosis.md
-
-# 推荐：生成推荐列表和可执行脚本
-diskadvisor recommend -o report/recommendations.md -s report/apply.ps1
-
-# 咨询：单个软件该装哪
-diskadvisor advise wechat
+diskadvisor ui
 ```
+
+浏览器自动打开 `http://127.0.0.1:8765`。
+
+### 参数
+
+```powershell
+diskadvisor ui --port 9000        # 自定义端口
+diskadvisor ui --host 0.0.0.0     # 监听所有网卡
+diskadvisor ui --no-open          # 不自动打开浏览器
+```
+
+### 5 个标签页
+
+| 标签         | 功能                                                        |
+| ------------ | ----------------------------------------------------------- |
+| **诊断**     | 一键扫描，磁盘使用率可视化，环境问题、错位软件、目录 Top N  |
+| **推荐**     | 按优先级分色卡片，展示原因/影响/步骤/风险，支持试运行和执行 |
+| **咨询**     | 输入软件名，查看安装路径、环境变量、版本管理、迁移步骤      |
+| **执行日志** | 历史列表，一键回滚                                          |
+| **知识库**   | 按类别分组、关键词搜索、校验结果                            |
+
+### 使用技巧
+
+- **快速模式**：勾选「快速模式」跳过目录和大文件扫描，约 15 秒
+- **强制刷新**：忽略缓存重新扫描
+- **缓存复用**：先诊断再推荐，推荐直接命中缓存，秒出
+- **试运行**：执行前先 `dry-run`，确认操作无误再正式执行
 
 ---
 
-## 📋 命令一览
+## 📋 CLI 命令
 
 | 命令                 | 说明                   | 示例                                            |
 | -------------------- | ---------------------- | ----------------------------------------------- |
+| `ui`                 | 启动 Web UI            | `diskadvisor ui --port 9000`                    |
 | `scan`               | 扫描系统，生成诊断报告 | `diskadvisor scan -o report/diagnosis.md`       |
 | `recommend`          | 生成推荐列表和脚本     | `diskadvisor recommend -s report/apply.ps1`     |
 | `advise <软件>`      | 查询单个软件的安装建议 | `diskadvisor advise nodejs`                     |
@@ -130,6 +243,7 @@ diskadvisor advise wechat
 | 参数                                | 说明                                           |
 | ----------------------------------- | ---------------------------------------------- |
 | `--no-deep`                         | 跳过目录占用和大文件扫描（速度快，推荐日常用） |
+| `--force-refresh`                   | 忽略缓存重新扫描                               |
 | `--top N`                           | 只显示前 N 条推荐                              |
 | `--include-manual`                  | 脚本中包含手动步骤（以注释形式）               |
 | `--mode dry-run\|interactive\|auto` | 执行模式                                       |
@@ -140,8 +254,6 @@ diskadvisor advise wechat
 ## 🎬 典型工作流
 
 ### 场景 1：新机初始化
-
-拿到新电脑，想一开始就把 D 盘规划好：
 
 ```powershell
 # 1. 生成初始化脚本
@@ -154,14 +266,20 @@ notepad init-setup.ps1
 .\init-setup.ps1
 ```
 
-脚本会：
+脚本会创建 D 盘目录结构、配置 `SCOOP` / `SCOOP_GLOBAL` 环境变量、安装 Scoop、设置缓存目录。
 
-- 创建 D 盘目录结构（Developer、SocialApps、Games 等）
-- 配置 `SCOOP` / `SCOOP_GLOBAL` 环境变量到 D 盘
-- 安装 Scoop
-- 设置 Scoop 缓存目录到 D 盘
+### 场景 2：C 盘告急（Web UI）
 
-### 场景 2：C 盘告急
+```powershell
+diskadvisor ui
+```
+
+1. 点击「诊断」→「开始扫描」→ 查看磁盘使用率和目录占用
+2. 切换到「推荐」→ 查看推荐列表
+3. 对推荐项先点「试运行」，确认无误后点「执行」
+4. 出问题在「执行日志」里一键回滚
+
+### 场景 3：C 盘告急（CLI）
 
 ```powershell
 # 1. 诊断
@@ -170,31 +288,21 @@ diskadvisor scan -o report/diagnosis.md
 # 2. 生成推荐
 diskadvisor recommend -o report/recommendations.md -s report/apply.ps1
 
-# 3. 审阅推荐和脚本
+# 3. 审阅
 notepad report/recommendations.md
 notepad report/apply.ps1
 
-# 4. 逐条执行（先 dry-run）
+# 4. 逐条执行
 diskadvisor apply migrate-wechat --mode dry-run
 diskadvisor apply migrate-wechat --mode auto
 ```
 
-### 场景 3：装新软件前咨询
+### 场景 4：装新软件前咨询
 
 ```powershell
 diskadvisor advise docker
 diskadvisor advise nodejs
 diskadvisor advise steam
-```
-
-### 场景 4：出问题回滚
-
-```powershell
-# 查看执行记录
-diskadvisor journal
-
-# 回滚指定会话
-diskadvisor rollback 20261103-161852-1b5e4d
 ```
 
 ### 场景 5：换机器还原规划
@@ -352,6 +460,9 @@ mypy src/
 
 # 校验知识库
 diskadvisor kb-validate
+
+# 启动开发服务器（热重载）
+uvicorn diskadvisor.server.app:create_app --factory --reload --port 8765
 ```
 
 ### 添加新功能
@@ -360,8 +471,10 @@ diskadvisor kb-validate
 
 1. **数据模型**：`core/models/` 或对应模块的 `models.py`
 2. **核心逻辑**：`scanner/` / `analyzer/` / `recommender/` / `executor/`
-3. **CLI 命令**：`cli/app.py`
-4. **测试**：`tests/unit/` 或 `tests/integration/`
+3. **API**（如果 Web 需要）：`server/routes/`
+4. **CLI 命令**：`cli/app.py`
+5. **前端**（如果 Web 需要）：`server/static/`
+6. **测试**：`tests/unit/` 或 `tests/integration/`
 
 ---
 
@@ -376,10 +489,10 @@ diskadvisor kb-validate
 1. 清理旧构建
 2. 安装依赖 + PyInstaller
 3. 运行全部测试（失败则中止）
-4. 打包成 `dist/diskadvisor.exe`
+4. 打包成 `dist/diskadvisor.exe`（含 Web UI 静态文件）
 5. 验证 exe 能运行
 
-输出：`dist\diskadvisor.exe`（约 38 MB）
+输出：`dist\diskadvisor.exe`（约 40 MB）
 
 ### 分发
 
@@ -397,6 +510,22 @@ diskadvisor/
 │   ├── cli/                # 命令行入口
 │   │   ├── app.py          # Typer 命令定义
 │   │   └── init_wizard.py  # 新机初始化向导
+│   ├── server/             # Web 服务器
+│   │   ├── app.py          # FastAPI 应用
+│   │   ├── cache.py        # 扫描结果缓存
+│   │   ├── deps.py         # 共享依赖
+│   │   ├── tasks.py        # 异步任务
+│   │   ├── routes/         # API 路由
+│   │   │   ├── scan.py
+│   │   │   ├── recommend.py
+│   │   │   ├── advise.py
+│   │   │   ├── execute.py
+│   │   │   ├── journal.py
+│   │   │   └── kb.py
+│   │   └── static/         # 前端资源
+│   │       ├── index.html
+│   │       ├── app.js
+│   │       └── style.css
 │   ├── core/               # 核心模型和工具
 │   │   ├── config/         # 配置 + 规划导入导出
 │   │   ├── models/         # SystemSnapshot 等数据模型
@@ -441,27 +570,28 @@ diskadvisor/
 | 操作系统   | Windows 10 1809+ / Windows 11                     |
 | Python     | 3.11+（源码运行）                                 |
 | PowerShell | 5.1+（系统自带）                                  |
+| 浏览器     | Chrome / Edge / Firefox 最新版（Web UI）          |
 | 权限       | 大部分命令无需管理员；`SCOOP_GLOBAL` 配置需管理员 |
 
 ---
 
 ## 🗺️ 后续规划
 
-### v0.2（计划中）
+### v1.2（计划中）
 
 - [ ] 知识库扩充到 **50+ 软件**
-- [ ] 扫描提速：`dir_size` 并行 + 缓存（当前约 2 分钟）
-- [ ] 增强软件路径识别：用 `UninstallString`、`DisplayIcon` 推断未记录 `InstallLocation` 的软件
+- [ ] 远程知识库更新（从 GitHub 拉取，不用更新 exe）
+- [ ] 增强软件路径识别（用 `UninstallString`、`DisplayIcon` 推断）
 
-### v0.3（规划中）
+### v1.3（规划中）
 
 - [ ] 定期体检模式（Windows 计划任务 + 通知）
-- [ ] 远程知识库（从 GitHub 拉取最新条目，不用更新 exe）
 - [ ] 与 Scoop / winget 深度集成（自动迁移可 Scoop 化的软件）
+- [ ] Web UI 支持配置导入导出
 
-### v1.0（远期）
+### v2.0（远期）
 
-- [ ] GUI（Tauri 或 Web）
+- [ ] Tauri 桌面应用（原生体验，体积更小）
 - [ ] 多语言（当前中文为主，抽 i18n）
 - [ ] 跨机器配置同步
 
@@ -484,6 +614,7 @@ feat: 添加 Telegram 知识库条目
 fix: 修复 Windows 10 下磁盘扫描的兼容性
 docs: 更新 README 快速开始
 test: 补充 Recommender 单元测试
+perf: 优化目录扫描速度
 ```
 
 ---
@@ -500,6 +631,8 @@ test: 补充 Recommender 单元测试
 - [Typer](https://typer.tiangolo.com/) — CLI 框架
 - [Rich](https://rich.readthedocs.io/) — 终端渲染
 - [Pydantic](https://docs.pydantic.dev/) — 数据校验
+- [FastAPI](https://fastapi.tiangolo.com/) — Web 框架
+- [Uvicorn](https://www.uvicorn.org/) — ASGI 服务器
 - [PyInstaller](https://pyinstaller.org/) — 打包工具
 - [c-drive-cleaner-skill](https://github.com/dww911/c-drive-cleaner-skill) — 早期灵感
 

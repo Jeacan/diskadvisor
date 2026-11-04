@@ -449,6 +449,37 @@ def init(
                 check=False,
             )
     
+@app.command()
+def ui(
+    host: str = typer.Option("127.0.0.1", "--host", help="监听地址"),
+    port: int = typer.Option(8765, "--port", "-p", help="监听端口"),
+    no_open: bool = typer.Option(False, "--no-open", help="不自动打开浏览器"),
+) -> None:
+    """启动 Web UI。"""
+    import threading
+    import time
+    import webbrowser
+
+    import uvicorn
+
+    from diskadvisor.server import create_app
+
+    app_instance = create_app()
+    url = f"http://{host}:{port}"
+
+    console.print(f"[bold cyan]DiskAdvisor UI[/bold cyan]")
+    console.print(f"地址：{url}")
+    console.print("[dim]按 Ctrl+C 停止[/dim]")
+    console.print("")
+
+    if not no_open:
+        def _open_browser() -> None:
+            time.sleep(1.5)
+            webbrowser.open(url)
+
+        threading.Thread(target=_open_browser, daemon=True).start()
+
+    uvicorn.run(app_instance, host=host, port=port, log_level="warning")
     
 def main() -> None:
     """CLI 入口（供 pyproject.toml 的 console_scripts 调用）。"""

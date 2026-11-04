@@ -32,7 +32,18 @@ python -m PyInstaller `
     --collect-all pydantic `
     --collect-all pydantic_settings `
     --collect-all loguru `
+    --collect-all fastapi `
+    --collect-all uvicorn `
+    --collect-all starlette `
+    --hidden-import uvicorn.logging `
+    --hidden-import uvicorn.loops.auto `
+    --hidden-import uvicorn.loops.asyncio `
+    --hidden-import uvicorn.protocols.http.auto `
+    --hidden-import uvicorn.protocols.http.h11_impl `
+    --hidden-import uvicorn.protocols.websockets.auto `
+    --hidden-import uvicorn.lifespan.on `
     --add-data "src/diskadvisor/kb/entries;diskadvisor/kb/entries" `
+    --add-data "src/diskadvisor/server/static;diskadvisor/server/static" `
     src/diskadvisor/__main__.py
 
 if ($LASTEXITCODE -ne 0) {

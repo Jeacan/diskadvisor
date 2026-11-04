@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DiskAdvisor - Windows 磁盘规划顾问</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>💾 DiskAdvisor</h1>
+        <p class="subtitle">Windows 磁盘空间规划顾问</p>
+        <span id="version" class="version"></span>
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="scan">诊断</button>
+      <button class="tab" data-tab="recommend">推荐</button>
+      <button class="tab" data-tab="advise">咨询</button>
+      <button class="tab" data-tab="journal">执行日志</button>
+      <button class="tab" data-tab="kb">知识库</button>
+    </nav>
+
+    <main class="container">
+      <!-- 诊断 -->
+      <section id="tab-scan" class="tab-content active">
+        <div class="toolbar">
+          <button id="btn-scan" class="btn primary">开始扫描</button>
+          <label class="checkbox">
+            <input type="checkbox" id="scan-no-deep" /> 快速模式（跳过目录扫描）
+          </label>
+        </div>
+        <div id="scan-progress" class="progress hidden">
+          <div class="spinner"></div>
+          <div style="flex: 1">
+            <div id="scan-stage">准备扫描...</div>
+            <div class="bar">
+              <div class="bar-fill ok" id="scan-bar" style="width: 5%"></div>
+            </div>
+          </div>
+        </div>
+        <div id="scan-result"></div>
+      </section>
+
+      <!-- 推荐 -->
+      <section id="tab-recommend" class="tab-content">
+        <div class="toolbar">
+          <button id="btn-recommend" class="btn primary">生成推荐</button>
+          <label class="checkbox">
+            <input type="checkbox" id="rec-no-deep" /> 快速模式
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" id="rec-include-manual" /> 包含手动步骤
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" id="scan-force" /> 强制刷新（忽略缓存）
+          </label>
+        </div>
+        <div id="rec-progress" class="progress hidden">
+          <div class="spinner"></div>
+          <span>生成推荐中...</span>
+        </div>
+        <div id="rec-result"></div>
+      </section>
+
+      <!-- 咨询 -->
+      <section id="tab-advise" class="tab-content">
+        <div class="toolbar">
+          <input
+            type="text"
+            id="advise-input"
+            placeholder="输入软件名或 ID，如 wechat、nodejs"
+            class="input" />
+          <button id="btn-advise" class="btn primary">查询</button>
+        </div>
+        <div id="advise-result"></div>
+      </section>
+
+      <!-- 执行日志 -->
+      <section id="tab-journal" class="tab-content">
+        <div class="toolbar">
+          <button id="btn-journal" class="btn primary">刷新</button>
+        </div>
+        <div id="journal-result"></div>
+      </section>
+
+      <!-- 知识库 -->
+      <section id="tab-kb" class="tab-content">
+        <div class="toolbar">
+          <button id="btn-kb-list" class="btn primary">列出全部</button>
+          <button id="btn-kb-validate" class="btn secondary">校验</button>
+          <input
+            type="text"
+            id="kb-search"
+            placeholder="搜索..."
+            class="input" />
+          <button id="btn-kb-search" class="btn secondary">搜索</button>
+        </div>
+        <div id="kb-result"></div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>DiskAdvisor · 安全原则：只读优先、可逆、透明、不碰数据</p>
+      </div>
+    </footer>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>
